@@ -62,4 +62,20 @@ class UserTest < ActiveSupport::TestCase
     @user.save
     assert_equal address_with_uppercase.downcase, @user.reload.email
   end
+
+  test "password should be present" do
+    @user.password = @user.password_confirmation = " " * 6
+    assert_not @user.valid?
+  end
+
+  test "password should not be too short" do
+    @user.password = @user.password_confirmation = "a" * 5
+    assert_not @user.valid?
+  end
+
+  # Note: has_secure_password implements this validation
+  test "password should not be too long" do
+    @user.password = @user.password_confirmation = "a" * 73
+    assert_not @user.valid?
+  end
 end
