@@ -8,10 +8,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    # This should fail due to strong params
     @user = User.new(user_params)
     if @user.save
-      # This is where we'll handle a successful save
+      redirect_to @user
     else
       render :new
     end
