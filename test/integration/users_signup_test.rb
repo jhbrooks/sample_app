@@ -17,12 +17,13 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 
   test "valid signup" do
     get signup_path
-    assert_difference "User.count" do
-      post users_path user: { name: "Ex",
-                              email: "ex@example.com",
-                              password: "3x4mp13",
-                              password_confirmation: "3x4mp13" }
+    assert_difference "User.count", 1 do
+      post_via_redirect users_path user: { name: "Ex",
+                                           email: "ex@example.com",
+                                           password: "3x4mp13",
+                                           password_confirmation: "3x4mp13" }
     end
-    assert_response :redirect
+    assert_template "users/show"
+    assert_not flash.empty?
   end
 end
