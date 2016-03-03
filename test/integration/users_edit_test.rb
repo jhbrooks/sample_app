@@ -19,9 +19,11 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_select "div.field_with_errors"
   end
 
-  test "valid edit" do
-    log_in_as(@user)
+  test "valid edit with friendly forwarding" do
     get edit_user_path(@user)
+    log_in_as(@user)
+    assert_redirected_to edit_user_path(@user)
+    follow_redirect!
     name = "edit_ex"
     email = "edit_ex@example.com"
     assert_template "users/edit"
@@ -34,5 +36,14 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     @user.reload
     assert_equal name, @user.name
     assert_equal email, @user.email
+  end
+
+  test "friendly forwarding only forwards the first time" do
+    get edit_user_path(@user)
+    log_in_as(@user)
+    assert_redirected_to edit_user_path(@user)
+    delete logout_path
+    log_in_as(@user)
+    assert_redirected_to user_path(@user)
   end
 end
