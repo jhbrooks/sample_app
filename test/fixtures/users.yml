@@ -4,3 +4,8 @@ example:
   name: Fixture_ex
   email: fixture_ex@example.com
   password_digest: <%= User.digest("password") %>
+
+example_two:
+  name: Fixture_ex_two
+  email: fixture_ex_two@example.com
+  password_digest: <%= User.digest("password") %>
