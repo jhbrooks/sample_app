@@ -9,3 +9,20 @@ example_two:
   name: Fixture_ex_two
   email: fixture_ex_two@example.com
   password_digest: <%= User.digest("password") %>
+
+example_three:
+  name: Fixture_ex_three
+  email: fixture_ex_three@example.com
+  password_digest: <%= User.digest("password") %>
+
+example_four:
+  name: Fixture_ex_four
+  email: fixture_ex_four@example.com
+  password_digest: <%= User.digest("password") %>
+
+<% 30.times do |n| %>
+user_<%= n %>:
+  name: <%= "User #{n}" %>
+  email: <%= "user-#{n}@example.com" %>
+  password_digest: <%= User.digest("password") %>
+<% end %>
