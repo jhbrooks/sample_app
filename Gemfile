@@ -9,6 +9,10 @@ gem 'rails', '4.2.4'
 gem 'bcrypt', '3.1.7'
 # Use Faker to make sample users
 gem 'faker', '1.4.2'
+# Use pagination
+gem 'will_paginate', '3.0.7'
+# Configure it to use Bootstrap's pagination styles
+gem 'bootstrap-will_paginate', '0.0.10'
 # Use Bootstrap for improved styling
 gem 'bootstrap-sass', '3.2.0.0'
 
