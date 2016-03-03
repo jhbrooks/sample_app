@@ -17,4 +17,20 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_select "div#error_explanation"
     assert_select "div.field_with_errors"
   end
+
+  test "valid edit" do
+    get edit_user_path(@user)
+    name = "edit_ex"
+    email = "edit_ex@example.com"
+    assert_template "users/edit"
+    patch user_path(@user), user: { name: name,
+                                    email: email,
+                                    password: "",
+                                    password_confirmation: "" }
+    assert_not flash.empty?
+    assert_redirected_to @user
+    @user.reload
+    assert_equal name, @user.name
+    assert_equal email, @user.email
+  end
 end
