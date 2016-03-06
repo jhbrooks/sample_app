@@ -5,7 +5,7 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     @user = users(:example)
   end
 
-  test "show user profile with paginated microposts" do
+  test "show user profile with paginated microposts and total count" do
     get user_path(@user)
     assert_template "users/show"
     assert_select 'title', full_title(@user.name)
