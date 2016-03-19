@@ -4,8 +4,9 @@ class UserTest < ActiveSupport::TestCase
   def setup
     @user = User.new(name: "Ex", email: "ex@example.com",
                      password: "foobar", password_confirmation: "foobar")
-    @follower = users(:example_two)
-    @followed = users(:example_four)
+    @user_one = users(:example)
+    @user_two = users(:example_two)
+    @user_four = users(:example_four)
   end
 
   test "should be valid" do
@@ -94,11 +95,26 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should follow and unfollow a user" do
-    assert_not @follower.following?(@followed)
-    @follower.follow(@followed)
-    assert @follower.following?(@followed)
-    assert @followed.followers.include?(@follower)
-    @follower.unfollow(@followed)
-    assert_not @follower.following?(@followed)
+    assert_not @user_two.following?(@user_four)
+    @user_two.follow(@user_four)
+    assert @user_two.following?(@user_four)
+    assert @user_four.followers.include?(@user_two)
+    @user_two.unfollow(@user_four)
+    assert_not @user_two.following?(@user_four)
+  end
+
+  test "feed should have the right posts" do
+    # Posts from followed user
+    @user_two.microposts.each do |post_following|
+      assert @user_one.feed.include?(post_following)
+    end
+    # Posts from self
+    @user_one.microposts.each do |post_self|
+      assert @user_one.feed.include?(post_self)
+    end
+    # Posts from unfollowed user
+    @user_four.microposts.each do |post_unfollowed|
+      assert_not @user_one.feed.include?(post_unfollowed)
+    end
   end
 end
