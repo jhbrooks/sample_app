@@ -20,6 +20,11 @@ most_recent:
   user: example_two
   created_at: <%= Time.zone.now %>
 
+problem_post:
+  content: <div>Problematic</div>
+  user: example
+  created_at: <%= 1.minute.ago %>
+
 <% 30.times do |n| %>
 micropost_<%= n %>:
   content: <%= Faker::Lorem.sentence(5) %>
