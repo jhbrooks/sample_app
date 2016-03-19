@@ -4,8 +4,8 @@ class UserTest < ActiveSupport::TestCase
   def setup
     @user = User.new(name: "Ex", email: "ex@example.com",
                      password: "foobar", password_confirmation: "foobar")
-    @follower = users(:example)
-    @followed = users(:example_two)
+    @follower = users(:example_two)
+    @followed = users(:example_four)
   end
 
   test "should be valid" do
